@@ -1,32 +1,31 @@
-import React, { useState } from "react";
-import { tasks } from "./data";
-
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
+import React from "react";
 
 import { greeting, user } from "./data";
+import { albums } from "./data";
+import Search from "./components/Search";
 
 function App() {
-  const [myTasks, setMyTasks] = useState(tasks);
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const addItem = {
-      id: myTasks.length + 1,
-      title: e.target.taskName.value,
-      status: "In progress",
-    };
-    setMyTasks((prevState) => [...prevState, addItem]);
-  };
-
   return (
     <div className="App">
       <h1>
         {greeting} {user}
       </h1>
-
-      <TaskForm handleFormSubmit={handleFormSubmit} />
-      <TaskList tasks={myTasks} />
+      <Search />
+      {albums.map((album) => (
+        <div>
+          <h2>Album: {album.name}</h2>
+          <p>Artist: {album.artist.name}</p>
+          <ul key={album.id}>
+            {album.tracks.map((track) => (
+              <div>
+                <li>{track.name}</li>
+                <li>Length: {track.length}</li>
+                <br />
+              </div>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 }

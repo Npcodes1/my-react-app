@@ -4,7 +4,7 @@ function TaskList(props) {
   return (
     <div>
       {props.tasks.map((task) => (
-        <ul>
+        <ul key={task.id}>
           <li>Task: {task.title}</li>
           <li>Status: {task.status}</li>
         </ul>
